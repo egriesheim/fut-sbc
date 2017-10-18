@@ -1,0 +1,13 @@
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\FUT.exe.config
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\FUT.exe
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\FUT.pdb
+C:\Users\Elliott\source\repos\FUT\FUT\obj\Debug\FUT.csprojResolveAssemblyReference.cache
+C:\Users\Elliott\source\repos\FUT\FUT\obj\Debug\FUT.csproj.CoreCompileInputs.cache
+C:\Users\Elliott\source\repos\FUT\FUT\obj\Debug\FUT.exe
+C:\Users\Elliott\source\repos\FUT\FUT\obj\Debug\FUT.pdb
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\EntityFramework.dll
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\EntityFramework.xml
+C:\Users\Elliott\source\repos\FUT\FUT\bin\Debug\EntityFramework.SqlServer.xml

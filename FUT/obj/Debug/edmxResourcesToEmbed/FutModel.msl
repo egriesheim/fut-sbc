@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FUTModelStoreContainer" CdmEntityContainer="FUTEntities">
+    <EntitySetMapping Name="Items">
+      <EntityTypeMapping TypeName="FUTModel.Item">
+        <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="itemId" ColumnName="itemId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="league" ColumnName="league" />
+          <ScalarProperty Name="club" ColumnName="club" />
+          <ScalarProperty Name="nation" ColumnName="nation" />
+          <ScalarProperty Name="position" ColumnName="position" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
