@@ -22,5 +22,8 @@ namespace FUT
         public string club { get; set; }
         public string nation { get; set; }
         public string position { get; set; }
+        public string quality { get; set; }
+        public string color { get; set; }
+        public Nullable<int> rating { get; set; }
     }
 }

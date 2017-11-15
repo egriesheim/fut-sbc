@@ -2,8 +2,11 @@
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="FUTModelStoreContainer" CdmEntityContainer="FUTEntities">
     <EntitySetMapping Name="Items">
-      <EntityTypeMapping TypeName="FUTModel.Item">
+      <EntityTypeMapping TypeName="IsTypeOf(FUTModel.Item)">
         <MappingFragment StoreEntitySet="Items">
+          <ScalarProperty Name="rating" ColumnName="rating" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="quality" ColumnName="quality" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="itemId" ColumnName="itemId" />
           <ScalarProperty Name="firstName" ColumnName="firstName" />

@@ -12,6 +12,9 @@
     <Property Name="club" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="nation" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
     <Property Name="position" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="quality" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="color" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="rating" Type="Int32" />
   </EntityType>
   <EntityContainer Name="FUTEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Items" EntityType="Self.Item" />

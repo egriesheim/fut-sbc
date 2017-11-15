@@ -92,6 +92,7 @@
       <DependentUpon>FutModel.edmx</DependentUpon>
       <LastGenOutput>FutModel.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="FutModel.edmx.sql" />
     <Content Include="FutModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FutModel.edmx</DependentUpon>

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\Elliott\source\repos\FUT\FUT\FutModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\egriesheim\repos\fut-sbc\FUT\FutModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

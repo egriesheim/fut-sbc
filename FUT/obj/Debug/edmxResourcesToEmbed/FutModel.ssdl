@@ -12,6 +12,9 @@
     <Property Name="club" Type="varchar(max)" />
     <Property Name="nation" Type="varchar(max)" />
     <Property Name="position" Type="varchar(max)" />
+    <Property Name="rating" Type="int" />
+    <Property Name="quality" Type="varchar(max)" />
+    <Property Name="color" Type="varchar(max)" />
   </EntityType>
   <EntityContainer Name="FUTModelStoreContainer">
     <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
