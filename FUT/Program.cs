@@ -21,11 +21,25 @@ namespace FUT
         public static void FindBestSBC()
         {
             int currentChemistry = 0;
-            List<Item> playerPool = db.Items.Where(u => u.rating >= 75 && u.rating <= 79 && (u.nation == "Spain" || u.nation == "Germany" || u.nation == "Brazil" || u.nation == "England" || u.nation == "Italy" || u.nation == "Argentina" || u.nation == "France")).ToList();
-            for (int i = 0; i < 1000000000; i++)
+            List<Item> playerPool = db.Items.Where(u => u.rating >= 75 && u.rating <= 79 && (u.nation == "Spain" || u.nation == "Germany" || u.nation == "Brazil" || u.nation == "England")).ToList();
+            for (int i = 0; i < 2000000000; i++)
             {
                 var team = GenerateTeam(playerPool, "3-4-1-2");
                 int nationCount = team.players.Select(u => u.nation).Distinct().Count();
+                var nations = team.players.Select(u => u.nation).Distinct().ToList();
+                bool nationsBool = false;
+                foreach(var nation in nations)
+                {
+                    int count = team.players.Where(u => u.nation == nation).Count();
+                    if(count > 3)
+                    {
+                        nationsBool = true;
+                    }
+                }
+                if(nationsBool)
+                {
+                    continue;
+                }
                 int squadRating = (int)team.players.Select(u => u.rating).Sum()/11;
                 int rareCount = (int)team.players.Where(u => u.color.Contains("rare")).Count();
                 int distinctCount = team.players.Distinct().Count();
@@ -53,16 +67,17 @@ namespace FUT
                     currentChemistry = Chemistry;
                     foreach(var player in team.players)
                     {
-                        Console.WriteLine(player.firstName + " " + player.lastName + ", " + player.league + ", " + player.club + ", " + player.nation + ", " + player.rating);
+                        Console.WriteLine(player.firstName + " " + player.lastName + ", " + player.league + ", " + player.club + ", " + player.nation + ", " + player.rating + " -- CHEM: " + player.itemId);
                     }
                 }
 
                 if (Chemistry >= 80)
                 {
-                    Console.WriteLine("Found perfect chem");
+                    Console.WriteLine();
+                    Console.WriteLine("Found perfect chem: " + Chemistry);
                     foreach (var player in team.players)
                     {
-                        Console.WriteLine(player.firstName + " " + player.lastName + ", " + player.league + ", " + player.club + ", " + player.nation + ", " + player.rating);
+                        Console.WriteLine(player.firstName + " " + player.lastName + ", " + player.league + ", " + player.club + ", " + player.nation + ", " + player.rating + " -- CHEM: " + player.itemId);
                     }
                 }
             }
@@ -206,6 +221,10 @@ namespace FUT
         public static int CheckChemistry(string formation, Team team)
         {
             int teamChemistry = 0;
+            foreach(var player in team.players)
+            {
+                player.itemId = 0;
+            }
 
             if (formation == "3-4-1-2")
             {
@@ -213,19 +232,19 @@ namespace FUT
                 // ST : 3 - ST, 2 - CF, LF/RF - 1
                 if (team.players[0].position == "ST")
                 {
-                    teamChemistry += GetChemCoefficient(3, link1);
+                    team.players[0].itemId += GetChemCoefficient(3, link1);
                 }
                 else if (team.players[0].position == "CF")
                 {
-                    teamChemistry += GetChemCoefficient(2, link1);
+                    team.players[0].itemId += GetChemCoefficient(2, link1);
                 }
                 else if (team.players[0].position == "LF" || team.players[0].position == "RF")
                 {
-                    teamChemistry += GetChemCoefficient(1, link1);
+                    team.players[0].itemId += GetChemCoefficient(1, link1);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link1);
+                    team.players[0].itemId += GetChemCoefficient(0, link1);
                 }
 
                 // 3 1,2,3
@@ -234,19 +253,19 @@ namespace FUT
                 // ST : 3 - ST, 2 - CF, LF/RF - 1
                 if (team.players[1].position == "ST")
                 {
-                    teamChemistry += GetChemCoefficient(3, link2);
+                    team.players[1].itemId += GetChemCoefficient(3, link2);
                 }
                 else if (team.players[1].position == "CF")
                 {
-                    teamChemistry += GetChemCoefficient(2, link2);
+                    team.players[1].itemId += GetChemCoefficient(2, link2);
                 }
                 else if (team.players[1].position == "LF" || team.players[1].position == "RF")
                 {
-                    teamChemistry += GetChemCoefficient(1, link2);
+                    team.players[1].itemId += GetChemCoefficient(1, link2);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link2);
+                    team.players[1].itemId += GetChemCoefficient(0, link2);
                 }
 
                 // 3 0,3,4
@@ -255,19 +274,19 @@ namespace FUT
                 // LM : 3 - LM, 2 - LW, 1 - LF, CM, LWB, LB, RM
                 if (team.players[2].position == "LM")
                 {
-                    teamChemistry += GetChemCoefficient(3, link3);
+                    team.players[2].itemId += GetChemCoefficient(3, link3);
                 }
                 else if (team.players[2].position == "LW")
                 {
-                    teamChemistry += GetChemCoefficient(2, link3);
+                    team.players[2].itemId += GetChemCoefficient(2, link3);
                 }
                 else if (team.players[2].position == "LF" || team.players[2].position == "CM" || team.players[2].position == "LWB" || team.players[2].position == "LB" || team.players[2].position == "RM")
                 {
-                    teamChemistry += GetChemCoefficient(1, link3);
+                    team.players[2].itemId += GetChemCoefficient(1, link3);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link3);
+                    team.players[2].itemId += GetChemCoefficient(0, link3);
                 }
 
                 // 3 0,5,7
@@ -276,19 +295,19 @@ namespace FUT
                 // CAM : 3 - CAM, 2 - CF, CM, 1 - CDM
                 if (team.players[3].position == "CAM")
                 {
-                    teamChemistry += GetChemCoefficient(3, link4);
+                    team.players[3].itemId += GetChemCoefficient(3, link4);
                 }
                 else if (team.players[3].position == "CF" || team.players[3].position == "CM")
                 {
-                    teamChemistry += GetChemCoefficient(2, link4);
+                    team.players[3].itemId += GetChemCoefficient(2, link4);
                 }
                 else if (team.players[3].position == "CDM")
                 {
-                    teamChemistry += GetChemCoefficient(1, link4);
+                    team.players[3].itemId += GetChemCoefficient(1, link4);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link4);
+                    team.players[3].itemId += GetChemCoefficient(0, link4);
                 }
 
                 // 4 0,1,5,6
@@ -297,19 +316,19 @@ namespace FUT
                 // RM : 3 - RM, 2 - RW, 1 - RF, CM, RWB, RB, LM
                 if (team.players[4].position == "RM")
                 {
-                    teamChemistry += GetChemCoefficient(3, link5);
+                    team.players[4].itemId += GetChemCoefficient(3, link5);
                 }
                 else if (team.players[4].position == "RW")
                 {
-                    teamChemistry += GetChemCoefficient(2, link5);
+                    team.players[4].itemId += GetChemCoefficient(2, link5);
                 }
                 else if (team.players[4].position == "RF" || team.players[4].position == "CM" || team.players[4].position == "RWB" || team.players[4].position == "RB" || team.players[4].position == "LM")
                 {
-                    teamChemistry += GetChemCoefficient(1, link5);
+                    team.players[4].itemId += GetChemCoefficient(1, link5);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link5);
+                    team.players[4].itemId += GetChemCoefficient(0, link5);
                 }
 
                 // 3 1,6,9
@@ -318,19 +337,19 @@ namespace FUT
                 // CM : 3 - CM, 2 - CAM, CDM, 1 - LM, RM
                 if (team.players[5].position == "CM")
                 {
-                    teamChemistry += GetChemCoefficient(3, link6);
+                    team.players[5].itemId += GetChemCoefficient(3, link6);
                 }
                 else if (team.players[5].position == "CAM" || team.players[5].position == "CDM")
                 {
-                    teamChemistry += GetChemCoefficient(2, link6);
+                    team.players[5].itemId += GetChemCoefficient(2, link6);
                 }
                 else if (team.players[5].position == "LM" || team.players[5].position == "RM")
                 {
-                    teamChemistry += GetChemCoefficient(1, link6);
+                    team.players[5].itemId += GetChemCoefficient(1, link6);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link6);
+                    team.players[5].itemId += GetChemCoefficient(0, link6);
                 }
 
                 // 4 2,3,6,8
@@ -339,19 +358,19 @@ namespace FUT
                 // CM : 3 - CM, 2 - CAM, CDM, 1 - LM, RM
                 if (team.players[6].position == "CM")
                 {
-                    teamChemistry += GetChemCoefficient(3, link7);
+                    team.players[6].itemId += GetChemCoefficient(3, link7);
                 }
                 else if (team.players[6].position == "CAM" || team.players[6].position == "CDM")
                 {
-                    teamChemistry += GetChemCoefficient(2, link7);
+                    team.players[6].itemId += GetChemCoefficient(2, link7);
                 }
                 else if (team.players[6].position == "LM" || team.players[6].position == "RM")
                 {
-                    teamChemistry += GetChemCoefficient(1, link7);
+                    team.players[6].itemId += GetChemCoefficient(1, link7);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link7);
+                    team.players[6].itemId += GetChemCoefficient(0, link7);
                 }
 
                 // 4 3,4,5,7
@@ -360,15 +379,15 @@ namespace FUT
                 // CB : 3 - CB, 1 - CDM, LB, RB
                 if (team.players[7].position == "CB")
                 {
-                    teamChemistry += GetChemCoefficient(3, link8);
+                    team.players[7].itemId += GetChemCoefficient(3, link8);
                 }
                 else if (team.players[7].position == "CDM" || team.players[7].position == "LB" || team.players[7].position == "RB")
                 {
-                    teamChemistry += GetChemCoefficient(1, link8);
+                    team.players[7].itemId += GetChemCoefficient(1, link8);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link8);
+                    team.players[7].itemId += GetChemCoefficient(0, link8);
                 }
 
                 // 3 2,8,10
@@ -377,15 +396,15 @@ namespace FUT
                 // CB : 3 - CB, 1 - CDM, LB, RB
                 if (team.players[8].position == "CB")
                 {
-                    teamChemistry += GetChemCoefficient(3, link9);
+                    team.players[8].itemId += GetChemCoefficient(3, link9);
                 }
                 else if (team.players[8].position == "CDM" || team.players[8].position == "LB" || team.players[8].position == "RB")
                 {
-                    teamChemistry += GetChemCoefficient(1, link9);
+                    team.players[8].itemId += GetChemCoefficient(1, link9);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link9);
+                    team.players[8].itemId += GetChemCoefficient(0, link9);
                 }
 
                 // 5 5,6,7,9,10
@@ -394,15 +413,15 @@ namespace FUT
                 // CB : 3 - CB, 1 - CDM, LB, RB
                 if (team.players[9].position == "CB")
                 {
-                    teamChemistry += GetChemCoefficient(3, link10);
+                    team.players[9].itemId += GetChemCoefficient(3, link10);
                 }
                 else if (team.players[9].position == "CDM" || team.players[9].position == "LB" || team.players[9].position == "RB")
                 {
-                    teamChemistry += GetChemCoefficient(1, link10);
+                    team.players[9].itemId += GetChemCoefficient(1, link10);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link10);
+                    team.players[9].itemId += GetChemCoefficient(0, link10);
                 }
 
                 // 3 4,8,10
@@ -411,21 +430,25 @@ namespace FUT
                 // GK : 3 - GK
                 if (team.players[10].position == "GK")
                 {
-                    teamChemistry += GetChemCoefficient(3, link11);
+                    team.players[10].itemId += GetChemCoefficient(3, link11);
                 }
                 else
                 {
-                    teamChemistry += GetChemCoefficient(0, link11);
+                    team.players[10].itemId += GetChemCoefficient(0, link11);
                 }
 
                 // 3 7,8,9
 
             }
+            foreach(var player in team.players)
+            {
+                teamChemistry += (int)player.itemId;
+            }
 
             return teamChemistry;
         }
 
-        public static float CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4)
+        public static double CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4)
         {
             int links = 0;
             int chemTotal = 0;
@@ -451,12 +474,12 @@ namespace FUT
                 }
                 links += chem;
             }
-            float chemistry = links / 3;
+            double chemistry = (double)links / 3;
 
             return chemistry;
         }
 
-        public static float CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4, Item player5)
+        public static double CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4, Item player5)
         {
             int links = 0;
             int chemTotal = 0;
@@ -483,12 +506,12 @@ namespace FUT
                 }
                 links += chem;
             }
-            float chemistry = links / 4;
+            double chemistry = (double)links / 4;
 
             return chemistry;
         }
 
-        public static float CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4, Item player5, Item player6)
+        public static double CalculateChemistry(Item basePlayer, Item player2, Item player3, Item player4, Item player5, Item player6)
         {
             int links = 0;
             int chemTotal = 0;
@@ -516,7 +539,7 @@ namespace FUT
                 }
                 links += chem;
             }
-            float chemistry = links / 5;
+            double chemistry = (double)links / 5;
 
             return chemistry;
         }
@@ -525,7 +548,7 @@ namespace FUT
         {
             if (chem == 3)
             {
-                if (links <= 1/3)
+                if (links < (double)1/3)
                 {
                     return 3;
                 }
@@ -533,7 +556,7 @@ namespace FUT
                 {
                     return 6;
                 }
-                else if (links <= 5/3)
+                else if (links <= (double)5/3)
                 {
                     return 9;
                 }
@@ -544,7 +567,7 @@ namespace FUT
             }
             else if (chem == 2)
             {
-                if (links <= 1/3)
+                if (links < (double)1 / 3)
                 {
                     return 2;
                 }
@@ -552,7 +575,7 @@ namespace FUT
                 {
                     return 5;
                 }
-                else if (links <= 5/3)
+                else if (links <= (double)5 / 3)
                 {
                     return 8;
                 }
@@ -563,7 +586,7 @@ namespace FUT
             }
             else if (chem == 1)
             {
-                if (links <= 1/3)
+                if (links < (double)1 / 3)
                 {
                     return 1;
                 }
@@ -571,7 +594,7 @@ namespace FUT
                 {
                     return 3;
                 }
-                else if (links <= 5/3)
+                else if (links <= (double)5 / 3)
                 {
                     return 5;
                 }
@@ -582,7 +605,7 @@ namespace FUT
             }
             else
             {
-                if (links <= 1/3)
+                if (links < (double)1 / 3)
                 {
                     return 0;
                 }
@@ -590,7 +613,7 @@ namespace FUT
                 {
                     return 1;
                 }
-                else if (links <= 5/3)
+                else if (links <= (double)5 / 3)
                 {
                     return 2;
                 }

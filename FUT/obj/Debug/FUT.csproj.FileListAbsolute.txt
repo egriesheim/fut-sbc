@@ -24,3 +24,16 @@ C:\Users\egriesheim\repos\fut-sbc\FUT\obj\Debug\FUT.csprojResolveAssemblyReferen
 C:\Users\egriesheim\repos\fut-sbc\FUT\obj\Debug\FUT.csproj.CoreCompileInputs.cache
 C:\Users\egriesheim\repos\fut-sbc\FUT\obj\Debug\FUT.exe
 C:\Users\egriesheim\repos\fut-sbc\FUT\obj\Debug\FUT.pdb
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\FUT.exe.config
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\FUT.exe
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\FUT.pdb
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\EntityFramework.dll
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\EntityFramework.xml
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Elliott\repos\fut-sbc\FUT\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Elliott\repos\fut-sbc\FUT\obj\Debug\FUT.csprojResolveAssemblyReference.cache
+C:\Users\Elliott\repos\fut-sbc\FUT\obj\Debug\FUT.csproj.CoreCompileInputs.cache
+C:\Users\Elliott\repos\fut-sbc\FUT\obj\Debug\FUT.exe
+C:\Users\Elliott\repos\fut-sbc\FUT\obj\Debug\FUT.pdb
